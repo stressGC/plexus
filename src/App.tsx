@@ -1,16 +1,19 @@
 import * as React from "react"
 import { hot } from "react-hot-loader"
+import Network from "./components/Network"
 
 
 class App extends React.Component<{}> {
 	public constructor(props: {}) {
 		super(props)
-
 	}
 
 	public render = () => {
 		return (
-			<h1>HELLO</h1>
+			<div className="container">
+				<h1>Network test</h1>
+				<Network />
+			</div>
 		)
 	}
 }
