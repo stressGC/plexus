@@ -1,0 +1,9 @@
+*~
+*.swp
+*.swo
+node_modules/
+dist/
+.cache/
+src/config.ts
+.jira-cli
+*.DS_STORE
