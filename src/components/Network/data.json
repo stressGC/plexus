@@ -1,0 +1,36 @@
+{
+	"persons": [{
+		"id": 1,
+		"name": "Georges",
+		"job": "Dev",
+		"company": "Phantombuster",
+		"svg": "http://marvel-force-chart.surge.sh/marvel_force_chart_img/magneto.png",
+		"age": 22
+	},
+	{
+		"id": 2,
+		"name": "Jordan",
+		"job": "Founder",
+		"company": "Victory Lane",
+		"svg": "http://marvel-force-chart.surge.sh/marvel_force_chart_img/top_hulk.png",
+		"age": 23
+	},
+	{
+		"id": 3,
+		"name": "Caroline",
+		"job": "Student",
+		"svg": "http://marvel-force-chart.surge.sh/marvel_force_chart_img/mystique.png",
+		"company": "EMLV",
+		"age": 22
+	}],
+	"relationships": [{
+		"id": 1,
+		"source": 1,
+		"target": 2
+	},
+	{
+		"id": 2,
+		"source": 1,
+		"target": 3
+	}]
+}
