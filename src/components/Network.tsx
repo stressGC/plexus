@@ -1,7 +1,6 @@
 import React from "react"
 import { Graph } from "react-d3-graph"
-import data from "./data.json"
-import { IPerson, IRelationship } from "../../types/plexus.js"
+import { IPerson, IRelationship } from "../types/plexus.js"
 
 // the graph configuration, you only need to pass down properties
 // that you want to override, otherwise default ones will be used
@@ -33,35 +32,31 @@ const myConfig = {
 	},
 }
 
-interface INetworkState {
+
+interface INetworkProps {
+	onPersonClick: (personId: string) => void,
 	persons: IPerson[],
 	relationships: IRelationship[],
-	personHighlight: IPerson | null,
 }
 
-class Network extends React.Component<{}, INetworkState> {
-	constructor(props: {}) {
+class Network extends React.Component<INetworkProps> {
+	constructor(props: INetworkProps) {
 		super(props)
-		this.state = {
-			...data,
-			personHighlight: null,
-		}
 	}
 
 	public render = () => {
-		console.log(this.state)
 		return (
 			<div style={{ backgroundColor: "grey" }}>
 				<Graph
 					id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
 					data={{
-						nodes: this.state.persons,
-						links: this.state.relationships,
+						nodes: this.props.persons,
+						links: this.props.relationships,
 					}}
 					config={myConfig}
-					onClickNode={this._onPersonClick}
-					onClickGraph={this._onClickGraph}
-					onClickLink={this._onClickLink}
+					onClickNode={this.props.onPersonClick}
+					// onClickGraph={this._onClickGraph}
+					// onClickLink={this._onClickLink}
 					// onDoubleClickNode={this._onDoubleClickNode}
 					// onRightClickNode={this._onRightClickNode}
 					// onRightClickLink={this._onRightClickLink}
@@ -74,28 +69,16 @@ class Network extends React.Component<{}, INetworkState> {
 			</div>
 		)
 	}
+	// private _onClickLink = (source: string, target: string) => {
+	// 	console.log(`Clicked link between ${source} and ${target}`)
+	// }
 
-	private _onPersonClick = (personId: string) => {
-		console.log(`Clicked person ${personId}`)
-		const person = this.state.persons.find((pers) => pers.id.toString() === personId)
-		if (!person) {
-			return
-		}
-		this.setState({
-			personHighlight: person,
-		})
-	}
-
-	private _onClickLink = (source: string, target: string) => {
-		console.log(`Clicked link between ${source} and ${target}`)
-	}
-
-	private _onClickGraph = () => {
-		console.log("Clicked the graph background")
-		this.setState({
-			personHighlight: null,
-		})
-	}
+	// private _onClickGraph = () => {
+	// 	console.log("Clicked the graph background")
+	// 	this.setState({
+	// 		personHighlight: null,
+	// 	})
+	// }
 	// graph event callbacks
 
 
