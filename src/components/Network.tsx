@@ -1,6 +1,7 @@
 import React from "react"
 import { Graph } from "react-d3-graph"
-import { IPerson, IRelationship } from "../types/plexus.js"
+import { IPerson, IRelationship } from "../types/plexus"
+import PersonNode from "./PersonNode"
 
 // the graph configuration, you only need to pass down properties
 // that you want to override, otherwise default ones will be used
@@ -21,12 +22,13 @@ const myConfig = {
 		highlightStrokeWidth: 1.5,
 		mouseCursor: "pointer",
 		opacity: 0.9,
-		renderLabel: true,
 		size: 200,
 		strokeColor: "none",
 		strokeWidth: 1.5,
 		symbolType: "circle",
+		renderLabel: false,
 	},
+	viewGenerator: (person: IPerson) => <PersonNode person={person} />,
 	link: {
 		highlightColor: "red",
 	},

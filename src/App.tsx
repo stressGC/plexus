@@ -7,6 +7,9 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Person from "./components/Person"
 import { IPerson, IRelationship } from "./types/plexus"
 import data from "./data.json"
+import NavBar from "./components/NavBar"
+import AdminFooter from "./components/AdminFooter"
+import "./styles/index.sass"
 
 interface IAppState {
 	toggled: boolean,
@@ -29,24 +32,28 @@ class App extends React.Component<{}, IAppState> {
 	public render = () => {
 		console.log(this.state)
 		return (
-			<div className="container-fluid">
-				<div className="row" style={{ minHeight: "100vh" }}>
-					<div className="col-md-8" style={{ height: "100%" }}>
-						<Network
-							onPersonClick={this._onPersonClick}
-							relationships={this.state.relationships}
-							persons={this.state.persons}
-						/>
+			<div id="app">
+				<NavBar />
+				<main className="container-fluid">
+					<div className="row" style={{ minHeight: "100vh" }}>
+						<div className="col-md-8" style={{ height: "100%" }}>
+							<Network
+								onPersonClick={this._onPersonClick}
+								relationships={this.state.relationships}
+								persons={this.state.persons}
+							/>
+						</div>
+						<div className="col-md-4">
+							<SidePanel toggled={this.state.toggled}>
+								{
+									this.state.personHighlight &&
+										<Person person={this.state.personHighlight} />
+								}
+							</SidePanel>
+						</div>
 					</div>
-					<div className="col-md-4">
-						<SidePanel toggled={this.state.toggled}>
-							{
-								this.state.personHighlight &&
-									<Person person={this.state.personHighlight} />
-							}
-						</SidePanel>
-					</div>
-				</div>
+				</main>
+				<AdminFooter />
 			</div>
 		)
 	}
