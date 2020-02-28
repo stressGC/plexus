@@ -60,7 +60,7 @@ class Network extends React.Component<INetworkProps> {
 					// onClickGraph={this._onClickGraph}
 					// onClickLink={this._onClickLink}
 					// onDoubleClickNode={this._onDoubleClickNode}
-					// onRightClickNode={this._onRightClickNode}
+					onRightClickNode={this._onRightClickNode}
 					// onRightClickLink={this._onRightClickLink}
 					// onMouseOverNode={this._onMouseOverNode}
 					// onMouseOutNode={this._onMouseOutNode}
@@ -71,6 +71,12 @@ class Network extends React.Component<INetworkProps> {
 			</div>
 		)
 	}
+
+
+	private _onRightClickNode = (_event: string, nodeId: string) => {
+		console.log(`Right clicked node ${nodeId}`)
+	}
+
 	// private _onClickLink = (source: string, target: string) => {
 	// 	console.log(`Clicked link between ${source} and ${target}`)
 	// }
@@ -88,9 +94,6 @@ class Network extends React.Component<INetworkProps> {
 	// 	console.log(`Double clicked node ${nodeId}`)
 	// }
 
-	// private _onRightClickNode = (_event: string, nodeId: string) => {
-	// 	console.log(`Right clicked node ${nodeId}`)
-	// }
 
 	// private _onMouseOverNode = (nodeId: string) => {
 	// 	console.log(`Mouse over node ${nodeId}`)

@@ -12,6 +12,11 @@ import "./styles/index.sass"
 import AddPerson from "./components/AddPerson"
 import { v4 as uuidv4 } from "uuid"
 
+// const fakePersons = new Array(5).fill(data.persons).flat().map((person) => { return {  ...person, id: uuidv4() }})
+// console.log(fakePersons)
+
+// const fakeRelations =
+
 interface IAppState {
 	toggled: boolean,
 	persons: IPerson[],
@@ -43,6 +48,7 @@ class App extends React.Component<{}, IAppState> {
 						<div className="col-md-8" style={{ height: "100%" }}>
 							<Network
 								onPersonClick={this._onPersonClick}
+								// onPersonRightClick={this._onPersonRightClick}
 								relationships={this.state.relationships}
 								persons={this.state.persons}
 							/>
@@ -59,11 +65,20 @@ class App extends React.Component<{}, IAppState> {
 										/>
 									)
 								}
+								{/* {
+									(this.state.isRelationFormOpen) && (
+										<RelationForm
+
+										/>
+									)
+								} */}
 							</SidePanel>
 						</div>
 					</div>
 				</main>
-				<AdminFooter />
+				<AdminFooter
+					onPersonAdd={this._addPersonAndRelation}
+				/>
 			</div>
 		)
 	}
