@@ -7,7 +7,7 @@ interface IInputFieldProps {
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputField = ({ name, value, onChange }: IInputFieldProps) => (
+export const InputField = ({ name, value, onChange }: IInputFieldProps) => (
 	<div className="form-group row">
 		<label htmlFor={name} className="col-sm-3 col-form-label">{name}</label>
 		<div className="col-sm-9">
