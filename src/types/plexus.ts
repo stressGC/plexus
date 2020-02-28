@@ -1,5 +1,5 @@
 export interface IPerson {
-	id: number,
+	id: string,
 	name: string,
 	job?: string,
 	company?: string,
@@ -10,7 +10,7 @@ export interface IPerson {
 }
 
 export interface IMeeting {
-	id: number,
+	id: string,
 	timestamp: number,
 	place?: string,
 	duration?: number,
@@ -18,11 +18,14 @@ export interface IMeeting {
 }
 
 export interface IRelationship {
-	id: number,
-	source: number,
-	target: number,
+	id: string,
+	source: string,
+	target: string,
 	proximity?: number,
 	firstContact?: number,
 	lastContactDate?: number,
 	meetingHistory?: IMeeting[],
 }
+
+export const isPerson = (person: Partial<IPerson> | null | undefined): person is IPerson => Boolean(person && person.id && person.name)
+export const isPersonWithoutId = (person: Partial<IPerson>): person is Omit<IPerson, "id"> => !!(person.name)
