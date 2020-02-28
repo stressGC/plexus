@@ -1,6 +1,6 @@
 {
 	"persons": [{
-		"id": 1,
+		"id": "1",
 		"name": "Georges",
 		"job": "Dev",
 		"company": "Phantombuster",
@@ -8,7 +8,7 @@
 		"age": 22
 	},
 	{
-		"id": 2,
+		"id": "2",
 		"name": "Jordan",
 		"job": "Founder",
 		"company": "Victory Lane",
@@ -16,7 +16,7 @@
 		"age": 23
 	},
 	{
-		"id": 3,
+		"id": "3",
 		"name": "Caroline",
 		"job": "Student",
 		"svg": "http://marvel-force-chart.surge.sh/marvel_force_chart_img/mystique.png",
@@ -24,13 +24,13 @@
 		"age": 22
 	}],
 	"relationships": [{
-		"id": 1,
-		"source": 1,
-		"target": 2
+		"id": "1",
+		"source": "1",
+		"target": "2"
 	},
 	{
-		"id": 2,
-		"source": 1,
-		"target": 3
+		"id": "2",
+		"source": "1",
+		"target": "3"
 	}]
 }
