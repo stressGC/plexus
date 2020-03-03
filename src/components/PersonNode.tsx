@@ -1,5 +1,5 @@
 import React from "react"
-import { IPerson } from "../types/plexus"
+import { IPerson } from "../models/plexus"
 
 interface IPersonNodeProps {
 	person: IPerson,

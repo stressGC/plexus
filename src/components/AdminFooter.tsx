@@ -1,9 +1,11 @@
 import * as React from "react"
-import { IPerson } from "../types/plexus"
+import { connect } from "react-redux"
+import IPerson from "../models/Person"
+import { actionAdminCreateRandomPerson } from "../actions"
 import { v4 as uuidv4 } from "uuid"
 
 interface IAdminFooterProps {
-	onPersonAdd: (person: Partial<IPerson>) => void,
+	onAdminPersonAdd: (person: Partial<IPerson>) => void,
 }
 
 class AdminFooter extends React.Component<IAdminFooterProps> {
@@ -23,7 +25,13 @@ class AdminFooter extends React.Component<IAdminFooterProps> {
 		)
 	}
 
-	private _fakeAPersonCreation = () => this.props.onPersonAdd({ name: uuidv4() })
+	private _fakeAPersonCreation = () => this.props.onAdminPersonAdd({ name: uuidv4() })
 }
 
-export default AdminFooter
+const mapDispatchToProps = (dispatch: any) => { // tslint:disable-line
+	return {
+		onAdminPersonAdd: () => dispatch(actionAdminCreateRandomPerson())
+	}
+}
+
+export default connect(null, mapDispatchToProps)(AdminFooter)

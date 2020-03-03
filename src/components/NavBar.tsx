@@ -1,11 +1,9 @@
 import * as React from "react"
+import { connect } from "react-redux"
+import {  } from "../actions"
+import { actionUiTogglePersonCreationForm } from "../actions/ui"
 
-interface INavBarProps {
-	onAddPersonClick: () => void,
-}
-
-
-const NavBar = ({ onAddPersonClick }: INavBarProps) => (
+const Navbar = ({ onAddPersonClick }: ReturnType<typeof mapDispatchToProps>) => (
 	<nav className="navbar navbar-expand navbar-dark bg-dark">
 		<a className="navbar-brand" href="#">Plexus</a>
 		<div className="collapse navbar-collapse">
@@ -28,4 +26,10 @@ const NavBar = ({ onAddPersonClick }: INavBarProps) => (
 	</nav>
 )
 
-export default NavBar
+const mapDispatchToProps = (dispatch: any) => { // tslint:disable-line
+	return {
+		onAddPersonClick: () => dispatch(actionUiTogglePersonCreationForm())
+	}
+}
+
+export default connect(null, mapDispatchToProps)(Navbar)

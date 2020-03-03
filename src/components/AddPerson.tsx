@@ -1,5 +1,7 @@
 import * as React from "react"
-import { isPerson, isPersonWithoutId, IPerson } from "../types/plexus"
+import IPerson, { isPersonWithoutId } from "../models/Person"
+import { connect } from "react-redux"
+import { actionNetworkAddPerson } from "../actions"
 
 interface IInputFieldProps {
 	name: string,
@@ -22,21 +24,15 @@ export const InputField = ({ name, value, onChange }: IInputFieldProps) => (
 	</div>
 )
 
-interface IAddPersonProps {
-	person: IPerson | null,
-	onPersonAdd: (person: Partial<IPerson>) => void,
-	onPersonChange: (person: IPerson) => void,
-}
-
 interface IAddPersonState {
 	person: Partial<IPerson>,
 }
 
-class AddPerson extends React.Component<IAddPersonProps, IAddPersonState> {
-	constructor(props: IAddPersonProps) {
+class AddPerson extends React.Component<ReturnType<typeof mapDispatchToProps>, IAddPersonState> {
+	constructor(props: ReturnType<typeof mapDispatchToProps>) {
 		super(props)
 		this.state = {
-			person: props.person || {},
+			person: {},
 		}
 	}
 
@@ -72,12 +68,21 @@ class AddPerson extends React.Component<IAddPersonProps, IAddPersonState> {
 	}
 
 	private _onFormSubmit = () => {
-		if (this.props.person && isPerson(this.state.person)) {
-			this.props.onPersonChange({...this.state.person})
-		} else if (isPersonWithoutId(this.state.person)) {
-			this.props.onPersonAdd({...this.state.person})
+		console.log(this.state)
+		if (this.state.person && isPersonWithoutId(this.state.person)) {
+			this.props.addPersonToNetwork(this.state.person)
 		}
+		// 	this.props.onPersonChange({...this.state.person})
+		// } else if (isPersonWithoutId(this.state.person)) {
+		// 	this.props.onPersonAdd({...this.state.person})
+		// }
 	}
 }
 
-export default AddPerson
+const mapDispatchToProps = (dispatch: any) => { // tslint:disable-line
+	return {
+		addPersonToNetwork: (person:  Omit<IPerson, "id">) => dispatch(actionNetworkAddPerson(person))
+	}
+}
+
+export default connect(null, mapDispatchToProps)(AddPerson)
