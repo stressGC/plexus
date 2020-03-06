@@ -1,29 +1,20 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
-import { createStore, applyMiddleware } from "redux"
-import { mainReducer, defaultState } from "./reducers"
-import thunk from "redux-thunk"
-import { composeWithDevTools } from "redux-devtools-extension"
+import { configureStore } from "./store"
+import { InMemoryNetworkGateway } from "./adapters/secondaries/InMemoryNetworkGateway"
+import { relationships, persons } from "./data.json"
+import App from "./App"
 
-import Root from "./views"
-import { Router } from "react-router-dom"
-import history from "./utils/history"
+const networkGateway = new InMemoryNetworkGateway()
+networkGateway.feedWith({ relationships, persons })
 
-const store = createStore(
-	mainReducer,
-	defaultState(),
-	composeWithDevTools(
-		applyMiddleware(thunk),
-	),
-)
+const store = configureStore({ networkGateway })
 
 ReactDOM.render(
 	(
 		<Provider store={store}>
-			<Router history={history}>
-				<Root />
-			</Router>
+			<App />
 		</Provider>
 	),
 	document.getElementById("root"),
