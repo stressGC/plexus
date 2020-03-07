@@ -6,8 +6,7 @@ import { INetworkGateway } from "../../gateways/network.gateway"
 
 type ThunkResult<D> = ThunkAction<void, IAppState, D, AnyAction>
 
-export const retrieveNetwork = ():
-	ThunkResult<{ networkGateway: INetworkGateway }> => {
+export const retrieveNetwork = (): ThunkResult<{ networkGateway: INetworkGateway }> => {
 	// tslint:disable-next-line: no-any
 	return async (dispatch: Dispatch<any>, _getState, { networkGateway }) => {
 		dispatch({type: "NETWORK_RETRIEVING"})

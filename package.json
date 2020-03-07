@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
+		"test:watch": "jest --watch",
 		"serve": "run-s parcel:serve",
 		"parcel:serve": "parcel src/index.html --hmr-port 38483",
 		"clean": "rm -rf dist .cache src/dist src/.cache src/config.ts .env",
@@ -27,7 +28,12 @@
 		"utils": "^0.3.1",
 		"uuid": "^7.0.1"
 	},
+	"jest": {
+		"preset": "ts-jest",
+		"moduleFileExtensions": ["ts", "tsx", "js"]
+	},
 	"devDependencies": {
+		"@types/jest": "^25.1.4",
 		"@types/react": "^16.9.22",
 		"@types/react-dom": "^16.9.5",
 		"@types/react-hot-loader": "^4.1.1",
@@ -36,11 +42,13 @@
 		"@types/redux": "^3.6.0",
 		"@types/redux-thunk": "^2.1.0",
 		"@types/uuid": "^7.0.0",
+		"jest": "^25.1.0",
 		"npm-run-all": "^4.1.5",
 		"parcel-bundler": "^1.12.4",
 		"react-hot-loader": "^4.12.19",
 		"redux-devtools-extension": "^2.13.8",
 		"sass": "^1.26.1",
+		"ts-jest": "^25.2.1",
 		"tslint": "^6.0.0",
 		"tslint-react": "^4.2.0",
 		"typescript": "^3.8.2"
