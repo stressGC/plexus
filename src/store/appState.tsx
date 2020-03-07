@@ -14,6 +14,7 @@ interface INetworkState {
 interface IUIState {
 	sidePanel: {
 		toggled: boolean,
+		isLoading: boolean,
 		content: {
 			type: "ADD_PERSON_FORM",
 		} | null

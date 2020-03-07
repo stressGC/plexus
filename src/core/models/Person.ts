@@ -1,3 +1,5 @@
+import { v4 as uuid } from "uuid"
+
 export default interface IPerson {
 	id: string,
 	name: string,
@@ -17,4 +19,9 @@ export class PersonModel {
 	public static isPersonWithoutId = (person: unknown): person is Omit<IPerson, "id"> => (
 		(typeof person === "object" && person !== null && "name" in person)
 	)
+
+	public static withGeneratedId = (personWithoutId: Omit<IPerson, "id">) => ({
+		...personWithoutId,
+		id: uuid(),
+	})
 }

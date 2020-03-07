@@ -1,15 +1,27 @@
 import { INetworkGateway } from "../../core/gateways/network.gateway"
 import INetwork from "../../core/models/Network"
-// import { relationships, persons } from "../../services/data/data.json"
+import IPerson, { PersonModel } from "../../core/models/Person"
+import IRelationship, { RelationModel } from "../../core/models/Relationship"
 
 export class InMemoryNetworkGateway implements INetworkGateway {
 	private network: INetwork | null = null
 
-	public get = async () => {
-		return Promise.resolve({
-			relationships: this.network?.relationships || [],
-			persons: this.network?.persons || [],
-		})
+	public get = async () => Promise.resolve({
+		relationships: this.network?.relationships || [],
+		persons: this.network?.persons || [],
+	})
+
+	public addPersonToNetwork = (person: unknown): Promise<{ person: IPerson, relation: IRelationship }> => {
+		if (PersonModel.isPersonWithoutId(person)) {
+			const personWithId = PersonModel.withGeneratedId(person)
+			const relation = RelationModel.getRelationFromPerson(personWithId)
+			return Promise.resolve({
+				person: personWithId,
+				relation,
+			})
+		} else {
+			throw new Error("LOL")
+		}
 	}
 
 	public feedWith(network: INetwork) {
@@ -17,24 +29,7 @@ export class InMemoryNetworkGateway implements INetworkGateway {
 	}
 }
 
-// 	static addPerson = (person: Omit<IPerson, "id">): Promise<{ person: IPerson, relation: IRelationship }> => {
-// 		return new Promise((resolve) => {
-// 			setTimeout(() => {
-// 				const newPersonId = uuid()
-// 				resolve({
-// 					person: {
-// 						...person,
-// 						id: newPersonId,
-// 					},
-// 					relation: {
-// 						id: uuid(),
-// 						source: "1",
-// 						target: newPersonId,
-// 					}
-// 				})
-// 			}, 200)
-// 		})
-// 	}
+
 
 // 	static adminAddRandomPerson = (): Promise<{ person: IPerson, relation: IRelationship }> => {
 // 		return new Promise((resolve) => {
