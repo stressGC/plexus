@@ -4,15 +4,15 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "jest",
 		"test:watch": "jest --watch",
 		"serve": "run-s parcel:serve",
 		"parcel:serve": "parcel src/index.html --hmr-port 38483",
 		"clean": "rm -rf dist .cache src/dist src/.cache src/config.ts .env",
 		"build": "parcel build src/index.html"
 	},
-	"author": "",
-	"license": "ISC",
+	"author": "Georges Cosson",
+	"license": "private",
 	"dependencies": {
 		"@types/react-d3-graph": "^2.3.1",
 		"abortcontroller-polyfill": "^1.4.0",
@@ -30,10 +30,15 @@
 	},
 	"jest": {
 		"preset": "ts-jest",
-		"moduleFileExtensions": ["ts", "tsx", "js"]
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js"
+		]
 	},
 	"devDependencies": {
 		"@types/jest": "^25.1.4",
+		"@types/lodash": "^4.14.149",
 		"@types/react": "^16.9.22",
 		"@types/react-dom": "^16.9.5",
 		"@types/react-hot-loader": "^4.1.1",
@@ -43,6 +48,7 @@
 		"@types/redux-thunk": "^2.1.0",
 		"@types/uuid": "^7.0.0",
 		"jest": "^25.1.0",
+		"lodash": "^4.17.15",
 		"npm-run-all": "^4.1.5",
 		"parcel-bundler": "^1.12.4",
 		"react-hot-loader": "^4.12.19",

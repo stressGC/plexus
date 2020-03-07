@@ -3,22 +3,10 @@ import { retrieveNetwork } from "./networkRetrieval"
 import { Store } from "redux"
 import { IAppState } from "../../../store/appState"
 import { configureStore } from "../../../store"
+import { persons, relationships } from "../../../data.json"
+import { listenToChangedState } from "../../../test.utils"
 
-const initialState: IAppState = {
-	network: {
-		fetching: false,
-		data: null,
-	},
-	ui: {
-		sidePanel: {
-			toggled: false,
-			isLoading: false,
-			content: null,
-		},
-	}
-}
-
-describe("Restaurants retrieval", () => {
+describe("Network retrieval", () => {
 
 	let store: Store<IAppState>
 	let networkGateway: InMemoryNetworkGateway
@@ -29,56 +17,86 @@ describe("Restaurants retrieval", () => {
 	})
 
 	it("should retrieve network without persons and relationships", (done) => {
-		listenToChangedState({
-			...initialState,
-			network: {
-				fetching: false,
-				data: {
-					persons: [],
-					relationships: [],
-				},
-			}
-		}, done, 2)
+		listenToChangedState(
+			store,
+			[{
+				index: 2,
+				rules: [{
+					expect: "network.fetching",
+					toBe: false,
+				}, {
+					expect: "network.data",
+					toBe: { persons: [], relationships: [] },
+				}]
+			}],
+			done,
+		)
 		retrieve()
 	})
 
-	// it("should retrieve some restaurants", done => {
-	// 	restaurantGateway.feedWith([{name: "The Shine"}])
-	// 	listenToChangedState(({
-	// 			restaurants: {
-	// 				data: [{name: "The Shine"}],
-	// 				fetching: false
-	// 			}
-	// 		}), done, 2
-	// 	)
-	// 	retrieve()
-	// })
+	it("should retrieve a network with persons and relationships", done => {
+		const network = { persons, relationships }
+		networkGateway.feedWith(network)
+		listenToChangedState(
+			store,
+			[{
+				index: 2,
+				rules: [{
+					expect: "network.fetching",
+					toBe: false,
+				}, {
+					expect: "network.data",
+					toBe: network,
+				}]
+			}],
+			done,
+		)
+		retrieve()
+	})
 
-	// it("should track the restaurants retrieval", done => {
-	// 	listenToChangedState(({
-	// 			restaurants: {
-	// 				data: [],
-	// 				fetching: true
-	// 			}
-	// 		}), done, 1
-	// 	)
-	// 	retrieve()
-	// })
+	it("should track the network retrieval", done => {
+		listenToChangedState(
+			store,
+			[{
+				index: 1,
+				rules: [{
+					expect: "network.fetching",
+					toBe: true,
+				}]
+			},
+			{
+				index: 2,
+				rules: [{
+					expect: "network.fetching",
+					toBe: false,
+				}]
+			}],
+			done,
+		)
+		retrieve()
+	})
+
+	it("should track the network retrieval", done => {
+		listenToChangedState(
+			store,
+			[{
+				index: 1,
+				rules: [{
+					expect: "network.fetching",
+					toBe: true,
+				}, {
+					expect: "network.data",
+					toBe: null,
+				}]
+			}],
+			done
+		)
+		retrieve()
+	})
+
 
 	const retrieve = () => {
 		// tslint:disable-next-line: no-any
 		store.dispatch<any>(retrieveNetwork())
 	}
-
-	const listenToChangedState = (expectedState: IAppState, done: () => void, actionPosition: number) => {
-		let counter = 1
-		store.subscribe(() => {
-			if (counter === actionPosition) {
-				expect(store.getState()).toEqual(expectedState)
-				done()
-			}
-			counter++
-		})
-	}
-
 })
