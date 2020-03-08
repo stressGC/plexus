@@ -11,7 +11,7 @@ describe("Network retrieval", () => {
 	let store: Store<IAppState>
 	let networkGateway: InMemoryNetworkGateway
 
-	beforeEach(() => {
+	beforeEach(() => { 
 		networkGateway = new InMemoryNetworkGateway()
 		store = configureStore({ networkGateway })
 	})
