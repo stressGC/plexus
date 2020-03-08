@@ -6,6 +6,9 @@
 	"scripts": {
 		"test": "jest",
 		"test:watch": "jest --watch",
+		"lint": "echo 'tslint...' && tslint --project . 'src/**/*.{ts,tsx}'",
+		"tsc-diagnostics": "echo 'tsc...' && tsc --diagnostics",
+		"check": "run-s lint tsc-diagnostics",
 		"serve": "run-s parcel:serve",
 		"parcel:serve": "parcel src/index.html --hmr-port 38483",
 		"clean": "rm -rf dist .cache src/dist src/.cache src/config.ts .env",
@@ -34,7 +37,15 @@
 			"ts",
 			"tsx",
 			"js"
-		]
+		],
+		"globals": {
+			"ts-jest": {
+				"diagnostics": {
+					"warnOnly": true,
+					"pathRegex": "\\.(spec|test)\\.ts$"
+				}
+			}
+		}
 	},
 	"devDependencies": {
 		"@types/jest": "^25.1.4",
