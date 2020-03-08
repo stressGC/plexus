@@ -1,18 +1,11 @@
-import { ThunkAction } from "redux-thunk"
-import { IAppState } from "../../../store/appState"
-import { AnyAction } from "redux"
-import { Dispatch } from "react"
 import IPerson from "../../models/Person"
-import { INetworkGateway } from "../../gateways/network.gateway"
-import { IAllActions } from "../../../store/actions"
+import { IActionCreator, IDispatch } from "../../../plexus"
 
-type ThunkResult<D> = ThunkAction<void, IAppState, D, AnyAction>
-
-export const openAddPersonForm = (): ThunkResult<void> => (dispatch: Dispatch<IAllActions>) => {
+export const openAddPersonForm: IActionCreator = () => (dispatch: IDispatch) => {
 	dispatch({ type: "UI_OPEN_ADD_PERSON_FORM" })
 }
 
-export const submitAddPersonForm = (person: Partial<IPerson>): ThunkResult<{ networkGateway: INetworkGateway }> => async (dispatch: Dispatch<IAllActions>, _getState, { networkGateway }) => {
+export const submitAddPersonForm: IActionCreator = (person: Partial<IPerson>) => async (dispatch: IDispatch, _getState, { networkGateway }) => {
 	dispatch({ type: "UI_SIDE_PANEL_LOADING", payload: true })
 	try {
 		const { person: createdPerson, relation: createdRelation } = await networkGateway.addPersonToNetwork(person)

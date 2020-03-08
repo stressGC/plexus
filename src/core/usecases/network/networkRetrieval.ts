@@ -1,16 +1,9 @@
-import { ThunkAction } from "redux-thunk"
-import { IAppState } from "../../../store/appState"
-import { AnyAction } from "redux"
-import { Dispatch } from "react"
-import { INetworkGateway } from "../../gateways/network.gateway"
+import { IActionCreator, IDispatch } from "../../../plexus"
 
-type ThunkResult<D> = ThunkAction<void, IAppState, D, AnyAction>
-
-export const retrieveNetwork = (): ThunkResult<{ networkGateway: INetworkGateway }> => {
-	// tslint:disable-next-line: no-any
-	return async (dispatch: Dispatch<any>, _getState, { networkGateway }) => {
-		dispatch({type: "NETWORK_RETRIEVING"})
+export const retrieveNetwork: IActionCreator = () => {
+	return async (dispatch: IDispatch, _getState, { networkGateway }) => {
+		dispatch({ type: "NETWORK_RETRIEVING" })
 		const network = await networkGateway.get()
-		dispatch({type: "NETWORK_RETRIEVED", payload: network })
+		dispatch({ type: "NETWORK_RETRIEVED", payload: network })
 	}
 }
