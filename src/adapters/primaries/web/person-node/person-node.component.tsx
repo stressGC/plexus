@@ -11,7 +11,7 @@ const PersonNode = ({ person }: IPersonNodeProps) => {
 	}
 
 	return (
-		<div className="d-flex w-100 h-100 rounded-circle" style={{backgroundColor: "pink" }}>
+		<div className="person-node d-flex w-100 h-100 rounded-circle" style={{backgroundColor: "pink" }}>
 			<span className="align-self-center mx-auto">{person.name}</span>
 		</div>
 	)
