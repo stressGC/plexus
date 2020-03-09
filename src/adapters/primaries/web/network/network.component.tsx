@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from "react-redux"
 import { getNetworkSelector } from "./network.selector"
 import { retrieveNetwork } from "../../../../core/usecases/network/networkRetrieval"
 import { Graph } from "react-d3-graph"
+import PersonNode from "../person-node/person-node.component"
+import IPerson from "../../../../core/models/Person"
 
-const myConfig = {
+const networkConfig = {
 	nodeHighlightBehavior: true,
 	linkHighlightBehavior: true,
 	highlightDegree: 2,
@@ -21,11 +23,12 @@ const myConfig = {
 		highlightStrokeWidth: 1.5,
 		mouseCursor: "pointer",
 		opacity: 0.9,
-		size: 200,
+		size: 700,
 		strokeColor: "none",
 		strokeWidth: 1.5,
 		symbolType: "circle",
 		renderLabel: false,
+		viewGenerator: (person: IPerson) => <PersonNode person={person} />,
 	},
 	link: {
 		highlightColor: "red",
@@ -37,7 +40,6 @@ export const Network = () => {
 	const network = useSelector(getNetworkSelector)
 	// tslint:disable-next-line: no-any
 	useEffect(() => dispatch<any>(retrieveNetwork()), [])
-
 	if (network.errorMessage|| !network.data) {
 		return (<h1>{network.errorMessage}</h1>)
 	}
@@ -54,7 +56,7 @@ export const Network = () => {
 					nodes: network.data.persons,
 					links: network.data.relationships,
 				}}
-				config={myConfig}
+				config={networkConfig}
 			/>
 		</div>
 	)

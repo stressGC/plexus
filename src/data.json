@@ -4,7 +4,6 @@
 		"name": "Georges",
 		"job": "Dev",
 		"company": "Phantombuster",
-		"svg": "http://marvel-force-chart.surge.sh/marvel_force_chart_img/magneto.png",
 		"age": 22
 	},
 	{
@@ -12,14 +11,12 @@
 		"name": "Jordan",
 		"job": "Founder",
 		"company": "Victory Lane",
-		"svg": "http://marvel-force-chart.surge.sh/marvel_force_chart_img/top_hulk.png",
 		"age": 23
 	},
 	{
 		"id": "3",
 		"name": "Caroline",
 		"job": "Student",
-		"svg": "http://marvel-force-chart.surge.sh/marvel_force_chart_img/mystique.png",
 		"company": "EMLV",
 		"age": 22
 	}],

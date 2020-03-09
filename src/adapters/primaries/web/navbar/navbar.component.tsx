@@ -30,6 +30,12 @@ export const Navbar = () => {
 							to="/settings"
 						>Settings</NavLink>
 					</li>
+					<li className="nav-item">
+						<NavLink
+							className="nav-link"
+							to="/test"
+						>Test</NavLink>
+					</li>
 				</ul>
 				<button
 					type="button"
