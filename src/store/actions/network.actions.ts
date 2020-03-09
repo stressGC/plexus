@@ -19,4 +19,9 @@ interface INetworkAddPersonSuccessAction {
 	},
 }
 
-export type INetworkActions = INetworkRetrievingAction | INetworkRetrievedAction | INetworkAddPersonSuccessAction
+interface INetworkDeletePersonSuccessAction {
+	type: "NETWORK_DELETE_PERSON_SUCCESS"
+	payload: IPerson["id"]
+}
+
+export type INetworkActions = INetworkRetrievingAction | INetworkRetrievedAction | INetworkAddPersonSuccessAction | INetworkDeletePersonSuccessAction

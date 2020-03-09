@@ -13,6 +13,12 @@ const data = (networkData: IAppState["network"]["data"] = null, action: IAllActi
 			relationships: (networkData) ? [...networkData.relationships, action.payload.createdRelation] : [action.payload.createdRelation],
 		}
 	}
+	if (action.type === "NETWORK_DELETE_PERSON_SUCCESS") {
+		return {
+			persons: networkData ? networkData.persons.filter((person) => person.id !== action.payload) : null,
+			relationships: networkData ? networkData.relationships.filter((relation) => relation.source !== action.payload && relation.target !== action.payload) : null,
+		}
+	}
 	return networkData
 }
 

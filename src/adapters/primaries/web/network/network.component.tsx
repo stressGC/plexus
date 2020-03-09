@@ -34,6 +34,10 @@ export const Network = () => {
 		return (<h1>LOADING...</h1>)
 	}
 
+	if (!network.data.persons.length) {
+		return (<h1>Add some persons to your network!</h1>)
+	}
+
 	return (
 		<div style={{ backgroundColor: "grey" }}>
 			<Graph
