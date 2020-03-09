@@ -1,8 +1,11 @@
 import * as React from "react"
 import IPerson from "../../../../core/models/Person"
 import Tippy from "@tippy.js/react"
+import { useDispatch } from "react-redux"
+import { openAddPersonForm } from "../../../../core/usecases/network/networkPersonForm"
 
 const PersonNodeManagementDropdown = ({ id, hide }: { id: IPerson["id"], hide: () => void }) => {
+	const dispatch = useDispatch()
 	const onDeleteThisContactClick = () => {
 		console.log("onDeleteThisContactClick")
 		hide()
@@ -12,7 +15,8 @@ const PersonNodeManagementDropdown = ({ id, hide }: { id: IPerson["id"], hide: (
 		hide()
 	}
 	const onCreateRelationFromThisContactClick = () => {
-		console.log("onCreateRelationFromThisContactClick")
+		// tslint:disable-next-line: no-any
+		dispatch<any>(openAddPersonForm(id))
 		hide()
 	}
 	return (
@@ -20,18 +24,20 @@ const PersonNodeManagementDropdown = ({ id, hide }: { id: IPerson["id"], hide: (
 			<button
 				onClick={onEditThisContactClick}
 				className="dropdown-item cursor-pointer text-white"
+				disabled={true}
 			>
 				Edit contact [INCOMING]
 			</button>
 			<button
-			onClick={onCreateRelationFromThisContactClick}
+				onClick={onCreateRelationFromThisContactClick}
 				className="dropdown-item cursor-pointer text-white"
 			>
-				Create relation from this contact [INCOMING]
+				Create relation from this contact
 			</button>
 			<button
 				onClick={onDeleteThisContactClick}
 				className="dropdown-item cursor-pointer text-white"
+				disabled={true}
 			>
 				Delete [INCOMING]
 			</button>

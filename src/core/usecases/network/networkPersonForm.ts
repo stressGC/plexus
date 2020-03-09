@@ -1,8 +1,8 @@
 import IPerson from "../../models/Person"
 import { IActionCreator, IDispatch } from "../../../plexus"
 
-export const openAddPersonForm: IActionCreator = () => (dispatch: IDispatch) => {
-	dispatch({ type: "UI_OPEN_ADD_PERSON_FORM" })
+export const openAddPersonForm: IActionCreator = (mutualRelationId: string | undefined) => (dispatch: IDispatch) => {
+	dispatch({ type: "UI_OPEN_ADD_PERSON_FORM", payload: mutualRelationId })
 }
 
 export const submitAddPersonForm: IActionCreator = (person: Partial<IPerson>, mutualRelationId?: string) => async (dispatch: IDispatch, _getState, { networkGateway }) => {

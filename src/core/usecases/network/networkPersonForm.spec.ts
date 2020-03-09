@@ -53,26 +53,32 @@ describe("Network person adding", () => {
 	})
 
 	it("should open the sidepanel's person form with the 'from' relation prefilled", (done) => {
-		done()
-		// listenToChangedState(
-		// 	store,
-		// 	[{
-		// 		index: 1,
-		// 		rules: [{
-		// 			expect: "ui.sidePanel.toggled",
-		// 			toBe: true,
-		// 		}, {
-		// 			expect: "ui.sidePanel.isLoading",
-		// 			toBe: false,
-		// 		}, {
-		// 			expect: "ui.sidePanel.content",
-		// 			toBe: { type: "ADD_PERSON_FORM" },
-		// 		}],
-		// 	}],
-		// 	done,
-		// )
+		const mutualRelation: IPerson = {
+			id: "1",
+			name: "Caroline",
+		}
+		listenToChangedState(
+			store,
+			[{
+				index: 1,
+				rules: [{
+					expect: "ui.sidePanel.toggled",
+					toBe: true,
+				}, {
+					expect: "ui.sidePanel.isLoading",
+					toBe: false,
+				}, {
+					expect: "ui.sidePanel.content",
+					toBe: {
+						type: "ADD_PERSON_FORM",
+						mutualRelationId: mutualRelation.id
+					},
+				}],
+			}],
+			done,
+		)
 		// tslint:disable-next-line: no-any
-		// store.dispatch<any>(openAddPersonForm())
+		store.dispatch<any>(openAddPersonForm(mutualRelation.id))
 	})
 
 	it("should add a person to the network when form is submitted without 'mutualRelation' field", (done) => {

@@ -26,7 +26,8 @@ const sidePanel = (sidePanelState: IAppState["ui"]["sidePanel"] = initialSidePan
 			...sidePanelState,
 			toggled: true,
 			content: {
-				type: "ADD_PERSON_FORM"
+				type: "ADD_PERSON_FORM",
+				mutualRelationId: action.payload,
 			}
 		}
 	}

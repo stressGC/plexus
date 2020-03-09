@@ -2,7 +2,7 @@ import * as React from "react"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { submitAddPersonForm } from "../../../../core/usecases/network/networkPersonForm"
-import { addPersonGetAllContactsSelector } from "./add-person-form.selector"
+import { addPersonGetAllContactsSelector, getAddPersonFormMutualRelationIdSelector } from "./add-person-form.selector"
 
 interface IInputFieldProps {
 	name: string,
@@ -37,8 +37,8 @@ export const useTextInput = () => {
 	}
 }
 
-const useSelectInput = () => {
-	const [value, setValue] = useState<string | undefined>()
+const useSelectInput = (mutualRelationId: string | undefined) => {
+	const [value, setValue] = useState<string | undefined>(mutualRelationId)
 	return {
 		value,
 		setValue,
@@ -51,17 +51,17 @@ const useSelectInput = () => {
 
 const AddPersonForm = () => {
 	const contacts = useSelector(addPersonGetAllContactsSelector)
+	const mutualRelationId = useSelector(getAddPersonFormMutualRelationIdSelector)
 	const dispatch = useDispatch()
 	const { value: name, bind: bindName } = useTextInput()
 	const { value: job, bind: bindJob } = useTextInput()
 	const { value: company, bind: bindCompany } = useTextInput()
 	const { value: age, bind: bindAge } = useTextInput()
 	const { value: notes, bind: bindNotes } = useTextInput()
-	const { value: relation, bind: bindRelation } = useSelectInput()
+	const { value: relation, bind: bindRelation } = useSelectInput(mutualRelationId)
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		// console.log(name, job, company, age, notes)
 		const person = {
 			name,
 			job,
@@ -72,17 +72,23 @@ const AddPersonForm = () => {
 		// tslint:disable-next-line: no-any
 		dispatch<any>(submitAddPersonForm(person, relation))
 	}
-	console.log(relation)
+	// TODO: replace this by the real value
+	const currentUserId = "1"
 	return (
 		<form className="py-2" onSubmit={handleSubmit}>
 			<h2>Add a new relation</h2>
 			{
 				(contacts) && (
 					<div className="form-group row">
-						<label htmlFor="relation" className="col-sm-3 col-form-label">Relation</label>
+						<label htmlFor="relation" className="col-sm-3 col-form-label">Mutual Relation</label>
 						<div className="col-sm-9">
-							<select name="relation" className="form-control" value={relation} {...bindRelation}>
-								{contacts.map((contact) => <option key={contact.id} value={contact.id}>{contact.name}</option>)}
+							<select name="relation" className="form-control" value={relation || currentUserId} {...bindRelation}>
+								<option value={currentUserId}> - </option>
+								{
+									contacts
+										.filter((contact) => contact.id !== "1")
+										.map((contact) => <option key={contact.id} value={contact.id}>{contact.name}</option>)
+								}
 							</select>
 						</div>
 					</div>
@@ -95,7 +101,6 @@ const AddPersonForm = () => {
 			<InputField name="notes" {...bindNotes} />
 			<button
 				type="submit"
-				// disabled={!this._isSubmitable()}
 				className="btn btn-primary"
 			>Submit</button>
 		</form>

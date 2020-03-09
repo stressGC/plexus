@@ -15,8 +15,11 @@ interface IUIState {
 	sidePanel: {
 		toggled: boolean,
 		isLoading: boolean,
-		content: {
-			type: "ADD_PERSON_FORM",
-		} | null
+		content: IAddPersonFormContent | null
 	}
+}
+
+interface IAddPersonFormContent {
+	type: "ADD_PERSON_FORM",
+	mutualRelationId: string | undefined
 }
