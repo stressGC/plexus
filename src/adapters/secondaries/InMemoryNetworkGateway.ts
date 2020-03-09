@@ -24,6 +24,8 @@ export class InMemoryNetworkGateway implements INetworkGateway {
 		}
 	}
 
+	public deletePersonFromNetwork= (_personId: string): Promise<void> => Promise.resolve()
+
 	public feedWith(network: INetwork) {
 		this.network = network
 	}

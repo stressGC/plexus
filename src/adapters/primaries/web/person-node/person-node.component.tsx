@@ -3,11 +3,13 @@ import IPerson from "../../../../core/models/Person"
 import Tippy from "@tippy.js/react"
 import { useDispatch } from "react-redux"
 import { openAddPersonForm } from "../../../../core/usecases/network/networkPersonForm"
+import { deletePerson } from "../../../../core/usecases/network/networkPersonDeletion"
 
 const PersonNodeManagementDropdown = ({ id, hide }: { id: IPerson["id"], hide: () => void }) => {
 	const dispatch = useDispatch()
 	const onDeleteThisContactClick = () => {
-		console.log("onDeleteThisContactClick")
+		// tslint:disable-next-line: no-any
+		dispatch<any>(deletePerson(id))
 		hide()
 	}
 	const onEditThisContactClick = () => {
@@ -37,9 +39,8 @@ const PersonNodeManagementDropdown = ({ id, hide }: { id: IPerson["id"], hide: (
 			<button
 				onClick={onDeleteThisContactClick}
 				className="dropdown-item cursor-pointer text-white"
-				disabled={true}
 			>
-				Delete [INCOMING]
+				Delete
 			</button>
 		</div>
 	)
