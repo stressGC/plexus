@@ -11,10 +11,10 @@ export class InMemoryNetworkGateway implements INetworkGateway {
 		persons: this.network?.persons || [],
 	})
 
-	public addPersonToNetwork = (person: unknown): Promise<{ person: IPerson, relation: IRelationship }> => {
+	public addPersonToNetwork = (person: unknown, mutualRelationId: string): Promise<{ person: IPerson, relation: IRelationship }> => {
 		if (PersonModel.isPersonWithoutId(person)) {
 			const personWithId = PersonModel.withGeneratedId(person)
-			const relation = RelationModel.getRelationFromPerson(personWithId)
+			const relation = RelationModel.getRelationFromPerson(personWithId, mutualRelationId)
 			return Promise.resolve({
 				person: personWithId,
 				relation,

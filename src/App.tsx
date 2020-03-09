@@ -1,13 +1,13 @@
 import React from "react"
 
 import "bootstrap/dist/css/bootstrap.min.css"
+import "tippy.js/dist/tippy.css"
 import "./adapters/primaries/styles/index.sass"
 
 import { Switch, Route, BrowserRouter } from "react-router-dom"
 import { Network } from "./adapters/primaries/web/network/network.component"
 import { Navbar } from "./adapters/primaries/web/navbar/navbar.component"
 import { SidePanel } from "./adapters/primaries/web/side-panel/side-panel.component"
-import PersonNode from "./adapters/primaries/web/person-node/person-node.component"
 
 const Settings = () => <p>Coming soon...</p>
 
@@ -39,7 +39,6 @@ const App: React.FunctionComponent<{}> = () => (
 						<Switch>
 							<Route exact={true} path="/" component={Network}/>
 							<Route exact={true} path="/settings" component={Settings}/>
-							<Route exact={true} path="/test" component={PersonNode}/>
 						</Switch>
 					</div>
 					<div className="col-md-4">

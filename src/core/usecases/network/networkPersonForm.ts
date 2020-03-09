@@ -5,10 +5,10 @@ export const openAddPersonForm: IActionCreator = () => (dispatch: IDispatch) => 
 	dispatch({ type: "UI_OPEN_ADD_PERSON_FORM" })
 }
 
-export const submitAddPersonForm: IActionCreator = (person: Partial<IPerson>) => async (dispatch: IDispatch, _getState, { networkGateway }) => {
+export const submitAddPersonForm: IActionCreator = (person: Partial<IPerson>, mutualRelationId?: string) => async (dispatch: IDispatch, _getState, { networkGateway }) => {
 	dispatch({ type: "UI_SIDE_PANEL_LOADING", payload: true })
 	try {
-		const { person: createdPerson, relation: createdRelation } = await networkGateway.addPersonToNetwork(person)
+		const { person: createdPerson, relation: createdRelation } = await networkGateway.addPersonToNetwork(person, mutualRelationId)
 		dispatch({
 			type: "NETWORK_ADD_PERSON_SUCCESS",
 			payload: {

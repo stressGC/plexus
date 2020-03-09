@@ -4,6 +4,6 @@ import IRelationship from "../models/Relationship"
 
 export interface INetworkGateway {
 	get(): Promise<INetwork>
-	addPersonToNetwork(person: unknown): Promise<{ person: IPerson, relation: IRelationship }>
+	addPersonToNetwork(person: unknown, mutualRelationId?: string): Promise<{ person: IPerson, relation: IRelationship }>
 	// adminAddRandomPerson(): Promise<{ person: IPerson, relation: IRelationship }>
 }
