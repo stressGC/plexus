@@ -9,6 +9,7 @@ interface IUISidePanelLoadingAction {
 
 export interface IUIOpenAddPersomFormAction {
 	type: "UI_OPEN_ADD_PERSON_FORM"
+	payload?: string
 }
 
 export type IUIActions = IUISidePanelToggleAction | IUISidePanelLoadingAction |IUIOpenAddPersomFormAction

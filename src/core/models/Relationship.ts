@@ -13,9 +13,9 @@ export default interface IRelationship {
 }
 
 export class RelationModel {
-	public static getRelationFromPerson = (person: IPerson) => ({
+	public static getRelationFromPerson = (person: IPerson, sourceId?: string) => ({
 		id: uuid(),
-		source: "1",
+		source: sourceId || "1",
 		target: person.id,
 	})
 }

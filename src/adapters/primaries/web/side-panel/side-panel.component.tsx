@@ -22,8 +22,8 @@ export const SidePanel = () => {
 	return (
 		<div style={{ backgroundColor: "grey" }}>
 			{
-				content?.type === "ADD_PERSON_FORM" && (
-					<AddPersonForm />
+				(content?.type === "ADD_PERSON_FORM") && (
+					<AddPersonForm key={content.mutualRelationId} />
 				)
 			}
 		</div>
